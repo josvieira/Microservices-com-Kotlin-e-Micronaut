@@ -1,7 +1,6 @@
 package com.example.http
 
-import com.example.dto.output.Veiculo
-import io.micronaut.http.HttpResponse
+import com.example.dto.output.VeiculoDto
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.client.annotation.Client
@@ -10,5 +9,5 @@ import io.micronaut.http.client.annotation.Client
 interface VeiculoHttp {
 
     @Get("/veiculos/{id}")
-    fun findById(@PathVariable id: Long): Veiculo
+    fun findById(@PathVariable id: Long): VeiculoDto
 }
