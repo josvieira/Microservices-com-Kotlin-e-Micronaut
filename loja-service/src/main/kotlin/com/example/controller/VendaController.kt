@@ -15,7 +15,7 @@ class VendaController(
 ) {
 
     @Post
-    fun realizarVenda(@Body vendaInput: VendaInput): MutableHttpResponse<VeiculoDto>? {
+    fun realizarVenda(@Body vendaInput: VendaInput): MutableHttpResponse<VendaInput>? {
         return HttpResponse.ok(service.realizarVenda(vendaInput))
     }
 }
