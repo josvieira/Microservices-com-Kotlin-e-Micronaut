@@ -4,25 +4,19 @@ import com.example.dto.output.VeiculoDto
 import com.example.http.VeiculoHttp
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.inject.Singleton
-import redis.clients.jedis.JedisPool
-import redis.clients.jedis.JedisPoolConfig
 
 @Singleton
 class VeiculoService(
     private val veiculoHttp: VeiculoHttp,
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
+    private val cacheService: CachService
 ) {
 
     fun findById(id: Long): VeiculoDto {
+        println("Buscando veículo...")
         val veiculo = veiculoHttp.findById(id)
-        gravarCache(veiculo)
+        cacheService.putData(id.toString(), objectMapper.writeValueAsString(veiculo))//acho que isso deveria esta no serviço de veículo
         return veiculo
     }
 
-    fun gravarCache(veiculo: VeiculoDto){
-        val jedisPool = JedisPool(JedisPoolConfig(), "127.0.0.1", 6379)
-        val jedis = jedisPool.resource
-        var veiculoJson = objectMapper.writeValueAsString(veiculo)
-        jedis.set(veiculo.id.toString(), veiculoJson)
-    }
 }

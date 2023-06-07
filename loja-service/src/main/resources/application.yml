@@ -8,6 +8,11 @@ netty:
     allocator:
       max-order: 3
 
-kafka:
-  bootstrap:
-    servers: localhost:9092
+redis:
+  uri: redis://localhost:6379
+  caches:
+    veiculos:
+
+#kafka:
+#  bootstrap:
+#    servers: localhost:9092

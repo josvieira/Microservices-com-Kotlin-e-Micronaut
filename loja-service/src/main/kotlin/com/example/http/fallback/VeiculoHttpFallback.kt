@@ -1,8 +1,11 @@
 package com.example.http.fallback
 
+import com.example.dto.output.Veiculo
 import com.example.dto.output.VeiculoDto
 import com.example.http.VeiculoHttp
+import com.example.service.CachService
 import com.fasterxml.jackson.databind.ObjectMapper
+import io.micronaut.http.HttpResponse
 import io.micronaut.retry.annotation.Fallback
 import redis.clients.jedis.JedisPool
 import redis.clients.jedis.JedisPoolConfig
@@ -13,15 +16,17 @@ import redis.clients.jedis.JedisPoolConfig
  */
 @Fallback
 class VeiculoHttpFallback(
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
+    private val cacheService: CachService
 ): VeiculoHttp {
 
     override fun findById(id: Long): VeiculoDto {
-        val jedisPool = JedisPool(JedisPoolConfig(), "127.0.0.1", 6379)
-        var jedis = jedisPool.resource
-        val veiculoJson = jedis.get(id.toString())
-        val veiculo = objectMapper.readValue(veiculoJson, VeiculoDto::class.java)
-        print("veio no circuitbreaker")
-        return veiculo
+        println("veio no circuitbreaker")
+        val veiculoJson = cacheService.getData(id.toString())
+        return objectMapper.readValue(veiculoJson, VeiculoDto::class.java)
+    }
+
+    override fun saveVeiculo(veiculo: Veiculo): HttpResponse<VeiculoDto> {
+        TODO("Not yet implemented")
     }
 }
