@@ -29,6 +29,7 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("org.postgresql:postgresql")
     implementation("io.micronaut:micronaut-validation")
+    implementation('io.micronaut.redis:micronaut-redis-lettuce:5.3.2')
 
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
