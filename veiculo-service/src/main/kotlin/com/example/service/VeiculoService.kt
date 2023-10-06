@@ -20,9 +20,9 @@ class VeiculoService(
 
     fun create(veiculo: Veiculo): Veiculo {
         val veiculoSaved = repository.save(veiculo)
-        cacheService.putData(veiculoSaved.id.toString(), objectMapper.writeValueAsString(veiculo))
+        cacheService.putData(veiculoSaved.placa, objectMapper.writeValueAsString(veiculo))
         return veiculoSaved
     }
 
-    fun findById(id: Long): Optional<Veiculo> = repository.findById(id)
+    fun findByPlaca(placa: String): Optional<Veiculo> = repository.findByPlaca(placa)
 }

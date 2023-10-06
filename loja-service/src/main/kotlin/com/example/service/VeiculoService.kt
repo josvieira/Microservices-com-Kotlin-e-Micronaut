@@ -9,9 +9,9 @@ class VeiculoService(
     private val veiculoCache: VeiculoCache
 ) {
 
-    fun findById(id: Long): VeiculoDto {
+    fun findByPlaca(placa: String): VeiculoDto {
         println("Buscando veículo...")
-        val veiculo = veiculoCache.findById(id)
+        val veiculo = veiculoCache.findByPlaca(placa)
         return veiculo
     }
 

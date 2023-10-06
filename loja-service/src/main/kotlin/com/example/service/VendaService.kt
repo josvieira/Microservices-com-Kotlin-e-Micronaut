@@ -13,7 +13,7 @@ class VendaService(
 ) {
 
     fun realizarVenda(vendaInput: VendaInput): VendaInput{
-        val veiculo = http.findById(vendaInput.veiculo)
+        val veiculo = http.findByPlaca(vendaInput.placaVeiculo)
         return vendaInput
     }
 }

@@ -4,7 +4,7 @@ import io.lettuce.core.api.StatefulRedisConnection
 import jakarta.inject.Singleton
 
 @Singleton
-class CachService(
+ class CachService(
     private val conection: StatefulRedisConnection<String, String>
 ) {
 

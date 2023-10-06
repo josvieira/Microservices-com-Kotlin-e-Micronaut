@@ -16,7 +16,7 @@ interface VeiculoHttp {
     //Acho que aqui eu poderia inverter, colocar essas chamadas ao serviço externo no fallback caso não ache nada no cache
 
     @Get("/veiculos/{id}")
-    fun findById(@PathVariable id: Long):VeiculoDto
+    fun findByPlaca(@PathVariable placa: String):VeiculoDto
 
     @Post("/veiculos")
     fun saveVeiculo(@Body veiculo: Veiculo): HttpResponse<VeiculoDto>

@@ -20,7 +20,7 @@ class VeiculoController(
     }
 
     @Get("/{id}")
-    fun findById(@PathVariable id: Long): HttpResponse<Veiculo> {
-        return HttpResponse.ok(service.findById(id).get())
+    fun findByPlaca(@PathVariable placa: String): HttpResponse<Veiculo> {
+        return HttpResponse.ok(service.findByPlaca(placa).get())
     }
 }

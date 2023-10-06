@@ -21,23 +21,22 @@ class VeiculoCache(
     private val veiculoHttp: VeiculoHttp
 ) {
 
-    fun findById(id: Long): VeiculoDto {
+    fun findByPlaca(placa: String): VeiculoDto {
         println("veio no cache")
-        var veiculoJson = cacheService.getData(id.toString())
+        var veiculoJson = cacheService.getData(placa)
 
         return if (veiculoJson != null)
             objectMapper.readValue(veiculoJson, VeiculoDto::class.java)
         else {
 
-            val veiculoHttp = veiculoHttp.findById(id)
+            val veiculoHttp = veiculoHttp.findByPlaca(placa)
 
             cacheService.putData(
-                id.toString(),
+                placa,
                 objectMapper.writeValueAsString(veiculoHttp))
 
             veiculoHttp
         }
-
     }
 
     fun saveVeiculo(veiculo: Veiculo): HttpResponse<VeiculoDto> {
